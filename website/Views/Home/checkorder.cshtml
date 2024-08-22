@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .maindiv{
+            border: solid lightseagreen 1px;
+      
+            background-color: lightseagreen;
+            color: white;
+        
+        
+        }
+            .return{
+            border: solid lightseagreen 1px;
+   
+            background-color: lightseagreen;
+            color: white;
+        
+        
+        }
+             .welcometitle{ 
+        font-size:small;
+      position:absolute;
+      top:0;
+      right:0;
+            color: deeppink;
+      
+        }
+        .description {
+            border: solid black 3px;
+            border-radius: 5px;
+        }
+
+        .genrebutton {
+            margin-right: 150px;
+            height: auto;
+            width: auto;
+            display: inline-block;
+        }
+
+        .genre {
+            height: auto;
+            width: auto;
+            border: solid lightseagreen 1px;
+            font-size: 45px;
+            background-color:lightseagreen;
+            color:white;
+        }
+
+        .bookname {
+            font-size: 50px;
+        }
+
+        .book {
+            position: relative;
+        }
+
+        .informstion {
+            position: absolute;
+            width: 50%;
+            right: 200px;
+            top: 100px;
+            border: solid black 1px;
+        }
+
+        .eror {
+            font-size: 100px
+        }
+
+        .mainpage {
+           
+            height: auto;
+            width: auto;
+            font-size: 50px;
+            text-decoration: none;
+               border: solid lightseagreen 1px;
+      
+            background-color: lightseagreen;
+            color: white;
+        
+        }
+        .fontsize{
+        
+        font-size:35px;
+        
+        
+        }
+        .genrefont {
+            font-size: 35px;
+        }
+
+        .genrename {
+            font-size: 50px;
+        }
+
+        .image {
+            width: 400px;
+            height: 450px;
+            box-shadow: 0px 5px 20px 0px rgba(0, 0, 0, 0.5);
+        }
+
+    
+    </style>
+</head>
+<body style="background-image: url('@Url.Content("~/images/sakura.jpg")');  margin: 0;
+            background-repeat: no-repeat;
+            background-size: cover;">
+    <div class="welcometitle">sakuraboks.ru</div>
+    <div class="return">
+        <a class="mainpage " asp-controller="Home" asp-action="index"> вернуться на главную </a></div>
+        <div class="maindiv">
+       <form class="genrebutton"  method="POST">
+            <input type="hidden" value="checkorder" />
+
+            <label class="fontsize">введите номер заказа </label>
+            <input type="text" name="ordercheck" />
+            <input class="genre" type="submit" value="проверить заказ" />
+            </form>
+
+        @if (ViewBag.eror == false)
+        {
+            @foreach (orders orders in ViewBag.order)
+            {
+
+
+                <div class="fontsize">номер заказа @orders.ordernumber </div>
+                <div class="fontsize">название книги @orders.bookname </div>
+                <p class="fontsize"> цена @orders.price </p>
+                <div class="fontsize">имя заказчика @orders.customername </div>
+                 <div class="fontsize"> способ получения @orders.deliverymethod </div>
+                <div class="fontsize">@ViewBag.orderadress  @orders.orderadress </div>
+                <div class="fontsize"> способ оплаты @orders.paymentmethod </div>
+               
+                <div class="fontsize"> статус заказа @orders.orderstatus </div>
+            }
+
+        }
+        else if (ViewBag.eror=true)
+        {
+            <div class="fontsize">
+               @ViewBag.ordererorr 
+        
+        </div>
+        }
+
+    </div>
+</body>
+</html>

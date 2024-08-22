@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+          .maindiv{
+            border: solid lightseagreen 1px;
+      font-size:30px;
+            background-color: lightseagreen;
+            color: white;
+        
+        
+        }
+         .mainpage {
+           
+            height: auto;
+            width: auto;
+            font-size: 50px;
+            text-decoration: none;
+               border: solid lightseagreen 1px;
+      
+            background-color: lightseagreen;
+            color: white;
+        
+        
+        }
+             .return{
+            border: solid lightseagreen 1px;
+   
+            background-color: lightseagreen;
+            color: white;
+        
+        
+        }
+             .welcometitle{ 
+        font-size:small;
+      position:absolute;
+      top:0;
+      right:0;
+            color: deeppink;
+      
+        }
+     
+
+   
+
+      
+
+       
+
+      
+    </style>
+</head>
+<body style="background-image: url('@Url.Content("~/images/sakura.jpg")');  margin: 0;
+            background-repeat: no-repeat;
+            background-size: cover;">
+    <div class="welcometitle">sakuraboks.ru</div>
+    <div class="return">
+        <a class="mainpage " asp-controller="Home" asp-action="index"> вернуться на главную </a>
+        </div>
+   
+    @foreach (orders orders in ViewBag.orders)
+            {
+                <div class=" maindiv">
+            <div>номер вашего заказа @orders.ordernumber</div>
+
+          <div>@orders.bookname</div>
+          <div>@orders.price</div>
+            <div>ваше имя @orders.customername</div>
+          
+            <div>способ оплаты  @orders.paymentmethod</div>
+             <div>способ доставки @orders.deliverymethod</div>
+                  <div>@ViewBag.orderadress @orders.orderadress</div>
+            <div>статус заказа @orders.orderstatus</div>
+        </div>
+            }
+       
+
+</body>
+</html>

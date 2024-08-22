@@ -1,0 +1,164 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .welcometitle {
+            font-size: small;
+            position: absolute;
+            top: 0;
+            right: 0;
+            color: deeppink;
+        }
+    
+
+        .genrebutton {
+            margin-right: 150px;
+            height: auto;
+            width: auto;
+            display: inline-block;
+        }
+
+        .genre {
+            border: solid lightseagreen 1px;
+            background-color: lightseagreen;
+            color: white;
+            font-size: 45px;
+           
+        }
+        .buybutton{
+              border: solid deeppink 1px;
+            background-color: deeppink;
+            color: white;
+            font-size: 45px;
+        }
+
+        .maindiv {
+            border: solid lightseagreen 1px;
+            background-color: lightseagreen;
+            color: white;
+        }
+      
+
+        .labelsize {
+            border: solid lightseagreen 1px;
+            background-color: lightseagreen;
+            color: white;
+            font-size: 35px;
+        }
+
+   
+
+
+        .return {
+          border:solid lightseagreen 1px;
+            background-color: lightseagreen;
+            color:white;
+
+        }
+    </style>
+</head>
+<body style="background-image: url('@Url.Content("~/images/sakura.jpg")');  margin: 0;
+            background-repeat: no-repeat;
+            background-size: cover;">
+    <div class="welcometitle">sakuraboks.ru</div>
+    <div class="return">
+      	<form  asp-controller="Home" asp-action="goodspage" method="POST">
+            <input type="hidden" value="goodspage" />
+            <input type="hidden" name="bookname1" value="@ViewBag.bookname" />
+            <input class="genre" type="submit" value=" вернуться на сраницу книги @ViewBag.bookname" />
+            </form></div>
+            <div class="maindiv" >
+        <label class="labelsize">@ViewBag.bookname</label>
+   <p> <label class="labelsize">@ViewBag.price</label></p>
+
+           @{
+           Random r = new Random();
+            int ordernumber = r.Next(10000000, 99999999);
+
+           
+           }
+        <form  asp-controller="Home" asp-action="orderconfirmation" method="POST">
+            <input type="hidden" value="orderconfirmation" />
+            <input type="hidden" name="ordernumber" value=@ordernumber />
+            <input type="hidden" name="bookname" value="@ViewBag.bookname" />
+            <input type="hidden" name="price" value="@ViewBag.price" />
+        <label class="labelsize">введите ваше имя</label>
+            <input type="text" id="customername" onkeyup="validateInput()" name="customername" />
+      
+           
+            <label class="labelsize">введите адрес доставки</label>
+            <input type="text" id="orderadress" onkeyup="validateInput()" name="orderadress" />
+               
+            <label class="labelsize">выберете способ доставки </label>
+            <p>
+                <input class="labelsize" type="checkbox" id="courer" name="courer" onclick="toggleCheckboxes(this, 'self')" value="курьером" />курьером
+                <input class="labelsize" type="checkbox" id="self" name="self" onclick="toggleCheckboxes(this, 'courer');toggleAddress(this)"  value="самовывоз" />самовывоз
+            </p>
+            <label class="labelsize">выберете способ оплаты </label>
+            <p>
+            <input class="labelsize" type="checkbox" id="cash" name="cash" onclick="toggleCheckboxes(this, 'card')" value="наличными" />наличными
+                <input class="labelsize" type="checkbox" id="card" name="card" onclick="toggleCheckboxes(this, 'cash')" value=" картой при получении " />картой при получении
+            </p>
+            <input class="buybutton" id="submitorder" name="submitorder" type="submit" value="оформить заказ" />
+            </form>
+             <script>
+    function toggleCheckboxes(clickedCheckbox, targetCheckboxId) {
+        var targetCheckbox = document.getElementById(targetCheckboxId);
+        if (clickedCheckbox.checked) {
+            targetCheckbox.disabled = true;
+        } else {
+            targetCheckbox.disabled = false;
+        }
+    }
+   
+</script>
+<script>
+            function toggleAddress(checkbox) {
+                var orderAddress = document.getElementById("orderadress");
+                if (checkbox.checked) {
+                    orderAddress.value = "";
+                    orderAddress.disabled = true;
+                } else {
+                    orderAddress.disabled = false;
+                }
+                validateInput();
+            }
+
+            function validateInput() {
+               
+                var customername = document.getElementById("customername");
+                var orderadress = document.getElementById("orderadress");
+                var submitButton = document.getElementById("submitorder");
+
+                if (customername.value.trim() == "") {
+                    submitButton.disabled = true;
+                } else {
+                    submitButton.disabled = false;
+                }
+                if (orderadress.value.trim() == "") {
+                    submitButton.disabled = true;
+                } else {
+                    submitButton.disabled = false;
+                }
+                  if (customername.value.trim() == "" &&  orderadress.value.trim() == "")  {
+                    submitButton.disabled = true;
+                } else {
+                    submitButton.disabled = false;
+                }
+
+
+            }
+
+           
+            window.onload = function () {
+                validateInput();
+            };
+
+</script>
+        </div>
+
+ 
+</body>
+</html>
